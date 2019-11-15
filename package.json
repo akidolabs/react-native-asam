@@ -1,7 +1,7 @@
 {
   "name": "react-native-asam",
   "title": "React Native Asam",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Module that allows entering or exiting Autonomous Single App Mode from a react-native application",
   "main": "index.js",
   "scripts": {
