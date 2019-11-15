@@ -1,16 +1,16 @@
 {
   "name": "react-native-asam",
   "title": "React Native Asam",
-  "version": "1.0.0",
-  "description": "TODO",
+  "version": "1.0.1",
+  "description": "Module that allows entering or exiting Autonomous Single App Mode from a react-native application",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/github_account/react-native-asam.git",
-    "baseUrl": "https://github.com/github_account/react-native-asam"
+    "url": "git+https://github.com/akidolabs/react-native-asam.git",
+    "baseUrl": "https://github.com/akidolabs/react-native-asam"
   },
   "keywords": [
     "react-native"
@@ -29,5 +29,8 @@
   "devDependencies": {
     "react": "^16.8.3",
     "react-native": "^0.59.10"
+  },
+  "publishConfig": {
+    "registry": "https://artifactory.tools.akidolabs.com/artifactory/api/npm/npm-local/"
   }
 }
