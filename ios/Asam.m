@@ -5,33 +5,55 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(enterSingleAppMode: (RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+/* TODO: Promesify this method*/
+RCT_EXPORT_METHOD(enterSingleAppMode:(RCTResponseSenderBlock)callback)
 {
-  UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed) {
-    if (didSucceed) {
-      NSLog(@"entered single app mode");
-      [[[UIAlertView alloc] initWithTitle:@"entered single app mode" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }
-    else {
-      NSLog(@"failed to enter guided access");
-      [[[UIAlertView alloc] initWithTitle:@"Unable to enter single app mode" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }
+  dispatch_async(dispatch_get_main_queue(), ^{
+
+    UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed) {
+        if (didSucceed) {
+          NSLog(@"entered single app mode");
+          callback(@[[NSNull null], @(didSucceed)]);
+        }
+        else {
+          NSLog(@"failed to enter guided access");
+          callback(@[@"Failed to Enter Single App Mode", @(didSucceed)]);
+        }
+    });
+
   });
   
 }
 
-RCT_EXPORT_METHOD(exitSingleAppMode)
+/* TODO: Promesify this method */
+RCT_EXPORT_METHOD(exitSingleAppMode:(RCTResponseSenderBlock)callback)
 {
-  UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
-    if (didSucceed) {
-      NSLog(@"exited single app mode");
-      [[[UIAlertView alloc] initWithTitle:@"exited single app mode" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }
-    else {
-      NSLog(@"failed to enter guided access");
-      [[[UIAlertView alloc] initWithTitle:@"Unable to exit single access mode" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }
+  dispatch_async(dispatch_get_main_queue(), ^{
+
+    UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
+      if (didSucceed) {
+        NSLog(@"exited single app mode");
+        callback(@[[NSNull null], @(didSucceed)]);
+      }
+      else {
+        NSLog(@"failed to enter guided access");
+        callback(@[@"Failed to Exit Single App Mode", @(didSucceed)]);
+      }
+    });
+
   });
   
+}
+
+RCT_REMAP_METHOD(isSingleAppModeEnabled,
+                 isSingleAppModeEnabledWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+  dispatch_async(dispatch_get_main_queue(), ^{  
+
+    BOOL isEnabled = UIAccessibilityIsGuidedAccessEnabled();
+    resolve(@(isEnabled));
+
+  });
 }
 @end
