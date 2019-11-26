@@ -1,6 +1,7 @@
 # react-native-asam
 
 This is a module that allows entering or exiting Autonomous Single App Mode from a react-native application
+Currently there is only IOS support.
 
 ## Getting started
 
@@ -29,4 +30,7 @@ enterSingleAppMode();
 
 // To exit single app Mode
 exitSingleAppMode();
+
+// To check apps current mode using async/await
+const isEnabled = await isSingleAppModeEnabled();
 ```
